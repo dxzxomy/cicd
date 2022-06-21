@@ -39,14 +39,16 @@ pipeline {
         choice(description: "执行动作", name: "DFLAG",choices: ['部署镜像','只编译镜像'])
         string(name:'SCM_TAG',defaultValue: 'master',description:'代码仓库分支或者tag')
         string(name:'POD_TAG',defaultValue: 'node12',description:'jenkins的label标签')
+        string(name:'APP_NAME',defaultValue: '',description:'项目仓库名')
+        string(name:'APP_REPO',defaultValue: '',description:'项目仓库地址')
         choice(description: "选择部署环境", name: "DEPLOY_ENV",choices: ['test','beta'])
     }
     environment {
         GITLAB_KEY = 'git-ssh'
         KUBECONFIG_CREDENTIAL_ID = 'kubeconf'
         REGISTRY = 'reg.yhroot.com'
-        APP_NAME = 'yinht-api'
-        APP_REPO = 'git@github.com:dxzxomy/yinht_api.git'
+        APP_NAME = '${params.APP_NAME}'
+        APP_REPO = '${params.APP_REPO}'
         CICD_BRANCH = 'test'
     }
 
