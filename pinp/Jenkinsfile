@@ -21,8 +21,6 @@ pipeline {
         GITLAB_KEY = 'ssh-clone'
         KUBECONFIG_CREDENTIAL_ID = 'kubeconf'
         REGISTRY = 'reg.yhroot.com'
-        APP_NAME = ${params.APP_NAME}
-        APP_REPO = ${params.APP_REPO}
         CICD_BRANCH = 'test'
     }
 
