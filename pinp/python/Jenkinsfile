@@ -17,13 +17,8 @@ pipeline {
                containers:
                - name: jnlp
                  image: reg.yhroot.com/yinhe-pub/jnlp-slave:3.27-1
-               - name: builder
-                 imagePullPolicy: Always
-                 image: reg.yhroot.com/yinhe-pub/python:3.8-build 
-                 command: ['cat']
-                 tty: true
-               - name: dockerindocker
-                 image: reg.yhroot.com/yinhe-pub/dind:17-p1
+               - name: pinp
+                 image: bitnami/kubectl:latest
                  imagePullPolicy: Always
                  command:
                    - sh
