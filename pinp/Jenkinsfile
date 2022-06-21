@@ -6,21 +6,23 @@ if (currentBuild.getBuildCauses().toString().contains('BranchIndexingCause')) {
 pipeline {
     agent {
        kubernetes {
-         //cloud 'node14'
-         label 'node14'
+         //cloud 'kubernetes'
+         label 'pinp'
           }
     }
     parameters {
         choice(description: "执行动作", name: "DFLAG",choices: ['只编译镜像','部署镜像'])
-        string(name:'SCM_TAG',defaultValue: 'master',description:'代码仓库分支或者tag')
+        choice(description: "选择pipline模板", name: "PIPE_TEMP",choices: ['nodejs','python'])
+        string(name:'APP_NAME',defaultValue: 'master',description:'项目名') 
+        string(name:'APP_REPO',defaultValue: 'master',description:'项目仓库地址')
         choice(description: "选择部署环境", name: "DEPLOY_ENV",choices: ['test','beta','prod'])
     }
     environment {
         GITLAB_KEY = 'ssh-clone'
         KUBECONFIG_CREDENTIAL_ID = 'kubeconf'
         REGISTRY = 'reg.yhroot.com'
-        APP_NAME = 'feyinht'
-        APP_REPO = 'ssh://git@gitlab.yhroot.com:2224/ops/feyinht.git'
+        APP_NAME = ${params.APP_NAME}
+        APP_REPO = ${params.APP_REPO}
         CICD_BRANCH = 'test'
     }
 
