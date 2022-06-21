@@ -74,7 +74,7 @@ pipeline {
                   withCredentials([sshUserPrivateKey(credentialsId: "$GITLAB_KEY", keyFileVariable: 'clonekey', passphraseVariable: '', usernameVariable: 'node')]) {
                      sh "ssh-agent bash -c \"ssh-add $clonekey;export GIT_SSH_COMMAND='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no';git clone $APP_REPO\""
                    }
-                  sh 'ls'
+                  sh 'touch ./cicd-repo/.dockerignore'
                   sh 'cp ./cicd-repo/.dockerignore $APP_NAME/'
                   sh 'cd $APP_NAME && git checkout ${SCM_TAG}'
                   script {
