@@ -41,7 +41,7 @@ pipeline {
         choice(description: "选择部署环境", name: "DEPLOY_ENV",choices: ['test','beta'])
     }
     environment {
-        GITLAB_KEY = 'ssh-clone'
+        GITLAB_KEY = 'git-ssh'
         KUBECONFIG_CREDENTIAL_ID = 'kubeconf'
         REGISTRY = 'reg.yhroot.com'
         APP_NAME = 'yinht-api'
