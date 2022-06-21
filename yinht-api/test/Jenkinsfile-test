@@ -45,7 +45,7 @@ pipeline {
         KUBECONFIG_CREDENTIAL_ID = 'kubeconf'
         REGISTRY = 'reg.yhroot.com'
         APP_NAME = 'yinht-api'
-        APP_REPO = 'ssh://git@gitlab.yhroot.com:2224/ops/yinht-api.git'
+        APP_REPO = 'git@github.com:dxzxomy/yinht_api.git'
         CICD_BRANCH = 'test'
     }
 
@@ -53,7 +53,7 @@ pipeline {
         stage ('checkout cicd repo') {
             steps {
                 dir("${APP_NAME}/cicd-repo") {
-                  git credentialsId: "${GITLAB_KEY}", branch: "$BRANCH_NAME", url: 'ssh://git@gitlab.yhroot.com:2224/satop/cicd.git'
+                  git credentialsId: "${GITLAB_KEY}", branch: "$BRANCH_NAME", url: 'git@github.com:dxzxomy/yinht_api.git'
                 }
             }
         }
