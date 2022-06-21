@@ -36,8 +36,8 @@ pipeline {
           }
     }
     parameters {
-        choice(description: "执行动作", name: "DFLAG",choices: ['部署镜像','只编译镜像'])
-        string(name:'SCM_TAG',defaultValue: 'master',description:'代码仓库分支或者tag')
+        choice(description: "执行动作", name: "DFLAG",choices: ['只编译镜像','部署镜像'])
+        string(name:'SCM_TAG',defaultValue: 'main',description:'代码仓库分支或者tag')
         string(name:'POD_TAG',defaultValue: 'node12',description:'jenkins的label标签')
         string(name:'APP_NAME',defaultValue: '',description:'项目仓库名')
         string(name:'APP_REPO',defaultValue: '',description:'项目仓库地址')
