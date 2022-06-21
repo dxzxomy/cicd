@@ -3,7 +3,7 @@ if (currentBuild.getBuildCauses().toString().contains('BranchIndexingCause')) {
   currentBuild.result = 'ABORTED' // optional, gives a better hint to the user that it's been skipped, rather than the default which shows it's successful
   return
 }
-bitnami/kubectl
+
 pipeline {
     agent {
        kubernetes {
