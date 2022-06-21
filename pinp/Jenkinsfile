@@ -9,6 +9,26 @@ pipeline {
        kubernetes {
          //cloud 'kubernetes'
          label 'pinp'
+         yaml """
+             apiVersion: v1
+             kind: Pod
+             spec:
+               imagePullSecrets:
+               - name: yinhe-reg
+               containers:
+               - name: jnlp
+                 image: reg.yhroot.com/yinhe-pub/jnlp-slave:3.27-1
+               - name: pinp
+                 image: bitnami/kubectl:latest
+                 imagePullPolicy: Always
+                 command:
+                   - sh
+                   - -c
+                   - dockerd-entrypoint.sh
+                 securityContext:
+                   privileged: true
+                 tty: true
+           """
        }
     }
     parameters {
