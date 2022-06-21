@@ -54,7 +54,7 @@ pipeline {
         stage ('checkout cicd repo') { 
             steps {
                 dir("${APP_NAME}/cicd-repo") {
-                  git credentialsId: "${GITLAB_KEY}", branch: "$BRANCH_NAME", url: 'git@github.com:dxzxomy/yinht_api.git'
+                  git credentialsId: "${GITLAB_KEY}", branch: "$BRANCH_NAME", url: 'git@github.com:dxzxomy/cicd.git'
                 }
             }
         }
