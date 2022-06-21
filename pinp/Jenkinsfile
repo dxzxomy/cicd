@@ -30,7 +30,7 @@ pipeline {
         stage ('checkout cicd repo') {
             steps {
                 dir("${PIPE_NAME}/cicd-repo") {
-                  git credentialsId: "${GITLAB_KEY}", branch: "$BRANCH_NAME", url: 'ssh://git@gitlab.yhroot.com:2224/satop/cicd.git'
+                  git credentialsId: "${GITLAB_KEY}", branch: "$BRANCH_NAME", url: 'git@github.com:dxzxomy/cicd.git'
                 }
             }
         }
