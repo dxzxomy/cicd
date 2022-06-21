@@ -38,6 +38,7 @@ pipeline {
     parameters {
         choice(description: "执行动作", name: "DFLAG",choices: ['部署镜像','只编译镜像'])
         string(name:'SCM_TAG',defaultValue: 'master',description:'代码仓库分支或者tag')
+        string(name:'POD_TAG',defaultValue: 'node12',description:'jenkins的label标签')
         choice(description: "选择部署环境", name: "DEPLOY_ENV",choices: ['test','beta'])
     }
     environment {
