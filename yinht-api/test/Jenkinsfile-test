@@ -49,6 +49,7 @@ pipeline {
         REGISTRY = 'reg.yhroot.com'
         APP_NAME = "${params.APP_NAME}"
         APP_REPO = "https://github.com/dxzxomy/yinht-api.git"
+        CICD_REPO = "git@github.com:dxzxomy/cicd.git"
         CICD_BRANCH = 'test'
     }
 
@@ -56,14 +57,14 @@ pipeline {
         stage ('checkout cicd repo') { 
             steps {
                 dir("${APP_NAME}/cicd-repo") {
-                  git credentialsId: "${GITLAB_KEY}", branch: "$BRANCH_NAME", url: "ssh://git@gitlab.yhroot.com:2224/satop/cicd.git"
+                  git credentialsId: "${GITLAB_KEY}", branch: "$BRANCH_NAME", url: "${CICD_REPO}"
                 }
             }
         }
         stage ('checkout config repo') {
             steps {
                 dir("${APP_NAME}/config-repo") {
-                  git credentialsId: "${GITLAB_KEY}", branch: "$CICD_BRANCH", url: "ssh://git@gitlab.yhroot.com:2224/satop/cicd.git"
+                  git credentialsId: "${GITLAB_KEY}", branch: "$CICD_BRANCH", url: "${CICD_REPO}"
                 }
             }
         }
