@@ -39,7 +39,7 @@ pipeline {
         choice(description: "执行动作", name: "DFLAG",choices: ['只编译镜像','部署镜像'])
         string(name:'SCM_TAG',defaultValue: 'main',description:'代码仓库分支或者tag')
         string(name:'POD_TAG',defaultValue: 'node12',description:'jenkins的label标签')
-        string(name:'APP_NAME',defaultValue: '',description:'项目仓库名')
+        string(name:'APP_NAME',defaultValue: '',description:'项目名')
         string(name:'APP_REPO',defaultValue: '',description:'项目仓库地址')
         choice(description: "选择部署环境", name: "DEPLOY_ENV",choices: ['test','beta'])
     }
@@ -48,7 +48,7 @@ pipeline {
         KUBECONFIG_CREDENTIAL_ID = 'kubeconf'
         REGISTRY = 'reg.yhroot.com'
         APP_NAME = "${params.APP_NAME}"
-        APP_REPO = "https://github.com/dxzxomy/yinht-api.git"
+        APP_REPO = "${params.APP_REPO}"
         CICD_REPO = "git@github.com:dxzxomy/cicd.git"
         CICD_BRANCH = 'test'
     }
@@ -74,6 +74,7 @@ pipeline {
                   withCredentials([sshUserPrivateKey(credentialsId: "$GITLAB_KEY", keyFileVariable: 'clonekey', passphraseVariable: '', usernameVariable: 'node')]) {
                      sh "ssh-agent bash -c \"ssh-add $clonekey;export GIT_SSH_COMMAND='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no';git clone $APP_REPO\""
                    }
+                  sh 'ls'
                   sh 'cp ./cicd-repo/.dockerignore $APP_NAME/'
                   sh 'cd $APP_NAME && git checkout ${SCM_TAG}'
                   script {
