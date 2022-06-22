@@ -13,8 +13,6 @@ pipeline {
     }
     parameters {
         string(name:'APP_NAME', defaultValue: '', description:'项目名')
-        string(name:'APP_REPO', defaultValue: '', description:'项目仓库地址')
-        choice(description: "执行动作", name: "DFLAG",choices: ['只编译镜像','部署镜像'])
         choice(description: "选择pipline模板", name: "PIPE_TEMP",choices: ['nodejs','python'])
         choice(description: "选择部署环境", name: "DEPLOY_ENV", choices: ['test','beta','prod'])
     }
@@ -37,7 +35,7 @@ pipeline {
 
         stage ('checkout config repo') {
             steps {
-                dir("${APP_NAME}/config-repo") {
+                dir("${PIPE_NAME}/config-repo") {
                   git credentialsId: "${GITLAB_KEY}", branch: "$CICD_BRANCH", url: 'git@github.com:dxzxomy/cicd.git'
                 }
             }
@@ -57,7 +55,7 @@ pipeline {
 
        stage('get app and deploy conf') {
            steps {
-                dir("$APP_NAME/config-repo") {
+                dir("$PIPE_NAME/config-repo") {
                    sh 'ls -alh . && pwd'
                    sh "cp -ra $APP_NAME/config/${DEPLOY_ENV} ../$APP_NAME/apps_config"
                 }
