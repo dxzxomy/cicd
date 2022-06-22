@@ -21,6 +21,7 @@ pipeline {
                - name: pinp
                  image: reg.yhroot.com/yinhe-pub/kubectl:latest
                  imagePullPolicy: Always
+                 command: ['cat']
                  securityContext:
                    privileged: true
                  tty: true
