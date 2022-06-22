@@ -1,0 +1,25 @@
+apiVersion: devops.kubesphere.io/v1alpha3
+kind: Pipeline
+metadata:
+  annotations:
+    kubesphere.io/creator: admin
+  name: ${APP_NAME}
+  namespace: yinhe-project2wn5d
+spec:
+  multi_branch_pipeline:
+    discarder:
+      days_to_keep: '-1'
+      num_to_keep: '-1'
+    git_source:
+      credential_id: ssh-clone
+      discover_branches: true
+      git_clone_option:
+        depth: 1
+        timeout: 20
+      url: 'ssh://git@gitlab.yhroot.com:2224/satop/cicd.git'
+    name: ${APP_NAME}
+    script_path: ${APP_NAME}/${DEPLOY_ENV}/Jenkinsfile
+    source_type: git
+    timer_trigger:
+      interval: '3600000'
+  type: multi-branch-pipeline
