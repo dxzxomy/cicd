@@ -49,7 +49,7 @@ pipeline {
                       withCredentials([sshUserPrivateKey(credentialsId: "$GITLAB_KEY", keyFileVariable: 'clonekey', passphraseVariable: '', usernameVariable: 'node')]) {
                          sh "ssh-agent bash -c \"ssh-add $clonekey;export GIT_SSH_COMMAND='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no';git clone $APP_REPO\""
                        }
-                       sh "ls -ah"
+                       sh "ls -ah;sleep 10000"
                   }
                 }
             }
@@ -63,36 +63,5 @@ pipeline {
                 }
            }
        }
-        stage('docker build & push') {
-            steps {
-                container ('dind') {
-                  dir("${APP_NAME}/$APP_NAME") {
-                     script {
-                         sh "cp ../cicd-repo/$APP_NAME/test/Dockerfile-test Dockerfile-now"
-                         docker.withRegistry("https://$REGISTRY", 'harbor') {
-                             def customImage = docker.build("satop/$APP_NAME:${SCM_TAG}-${DEPLOY_ENV}-$BUILD_NUMBER","--build-arg GIT_TAG=${SCM_TAG} --build-arg GIT_COMMIT=${GIT_COMMIT} --build-arg appname=${APP_NAME} --build-arg dpenv=${DEPLOY_ENV} --no-cache -f ./Dockerfile-now .")
-                             customImage.push()
-                        }
-                     }
-                  }
-                }
-                echo "生成的镜像地址：$REGISTRY/satop/$APP_NAME:${SCM_TAG}-${DEPLOY_ENV}-$BUILD_NUMBER"
-
-            }
-        }
-       stage('deploy to production') {
-             when{
-               expression{
-                 return params.DFLAG =~ /部署镜像/
-               }
-             }
-             steps {
-               input(id: 'deploy-to-production', message: 'deploy to production?')
-               dir("$APP_NAME/config-repo") {
-                   sh "ls -alh ./$APP_NAME/deploy/${DEPLOY_ENV}/"
-                   kubernetesDeploy(configs: "$APP_NAME/deploy/${DEPLOY_ENV}/**", enableConfigSubstitution: true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
-               }
-             }
-        }
   }
 }
