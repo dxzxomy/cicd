@@ -19,7 +19,7 @@ pipeline {
                - name: jnlp
                  image: reg.yhroot.com/yinhe-pub/jnlp-slave:3.27-1
                - name: pinp
-                 image: reg.yhroot.com/yinhe-pub/bitnami/kubectl:latest
+                 image: reg.yhroot.com/yinhe-pub/kubectl:latest
                  imagePullPolicy: Always
                  command:
                    - sh
