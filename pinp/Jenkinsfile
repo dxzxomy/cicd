@@ -21,10 +21,6 @@ pipeline {
                - name: pinp
                  image: reg.yhroot.com/yinhe-pub/kubectl:latest
                  imagePullPolicy: Always
-                 command:
-                   - sh
-                   - -c
-                   - dockerd-entrypoint.sh
                  securityContext:
                    privileged: true
                  tty: true
