@@ -52,14 +52,19 @@ pipeline {
             }
         }
 
+        stage ('checkout config repo') {
+            steps {
+                dir("${APP_NAME}/config-repo") {
+                  git credentialsId: "${GITLAB_KEY}", branch: "$CICD_BRANCH", url: 'ssh://git@gitlab.yhroot.com:2224/satop/cicd.git'
+                }
+            }
+        }
         stage ('build pipeline') {
             steps {
                 container ('pinp') {
                   dir("${PIPE_NAME}/pinp-repo") {
                         script {
-                            sh 'ls'
-                            sh "kubectl -f apply ./pipeline.yaml"
-
+                            sh "ls"
                         }
                    }
                 }
