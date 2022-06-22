@@ -63,10 +63,11 @@ pipeline {
             steps {
                 container ('pinp') {
                   dir("${PIPE_NAME}/pinp-repo") {
-                        script {
-                            sh "ls"
-                        }
-                   }
+                      withCredentials([sshUserPrivateKey(credentialsId: "$GITLAB_KEY", keyFileVariable: 'clonekey', passphraseVariable: '', usernameVariable: 'node')]) {
+                         sh "ssh-agent bash -c \"ssh-add $clonekey;export GIT_SSH_COMMAND='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no';git clone git@github.com:dxzxomy/cicd.git\""
+                       }
+                       sh "ls -ah"
+                  }
                 }
             }
         }
