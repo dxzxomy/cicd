@@ -6,7 +6,7 @@ if (currentBuild.getBuildCauses().toString().contains('BranchIndexingCause')) {
 pipeline {
     agent {
        kubernetes {
-         //cloud 'kubernetes'
+         //cloud 'node14'
          label 'yinht-api'
          yaml """
              apiVersion: v1
