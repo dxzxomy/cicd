@@ -37,6 +37,7 @@ pipeline {
             steps {
                 dir("${PIPE_NAME}/config-repo") {
                   git credentialsId: "${GITLAB_KEY}", branch: "$CICD_BRANCH", url: 'git@github.com:dxzxomy/cicd.git'
+                  sh 'sleep 100000'
                 }
             }
         }
