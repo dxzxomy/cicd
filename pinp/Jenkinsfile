@@ -8,24 +8,7 @@ pipeline {
     agent {
        kubernetes {
          //cloud 'kubernetes'
-         label 'pinp'
-         yaml """
-             apiVersion: v1
-             kind: Pod
-             spec:
-               imagePullSecrets:
-               - name: yinhe-reg
-               containers:
-               - name: jnlp
-                 image: reg.yhroot.com/yinhe-pub/jnlp-slave:3.27-1
-               - name: pinp
-                 image: reg.yhroot.com/yinhe-pub/kubectl:v1.0.2
-                 imagePullPolicy: Always
-                 command: ['sh', '-x', 'docker-entrypoint.sh']
-                 securityContext:
-                   privileged: true
-                 tty: true
-           """
+         label 'node14'
        }
     }
     parameters {
