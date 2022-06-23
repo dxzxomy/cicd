@@ -28,18 +28,15 @@ pipeline {
 
         stage ('build pipeline') {
             steps {
-       	       if  ("master" ==  'master' ) {
-             		echo  'I only execute on the master branch'
-        	       }  else  {
-             		echo  'I execute elsewhere'
-         	       }
                 container ('pinp') {
                   dir("${PIPE_NAME}/pinp-repo") {
-       	       if  ("master" ==  'master' ) {
+                       script {
+       	         if  ("master" ==  'master' ) {
              		echo  'I only execute on the master branch'
-        	       }  else  {
+        	         }  else  {
              		echo  'I execute elsewhere'
-         	       }
+         	         }
+                       }
                        sh "ls -ah"
                   }
                 }
