@@ -44,7 +44,7 @@ pipeline {
             steps {
                 container ('pinp') {
                   dir("${PIPE_NAME}/pinp-repo") {
-                       if ( "omy" = "omy" ) {
+                       if ( "omy" in "omyhfbcv" ) {
                            echo "yes-omy"
                        }
                        sh "ls -ah"
