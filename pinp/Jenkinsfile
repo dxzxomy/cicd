@@ -25,21 +25,7 @@ pipeline {
     }
 
     stages {
-        stage ('checkout cicd repo') {
-            steps {
-                dir("${PIPE_NAME}/cicd-repo") {
-                  git credentialsId: "${GITLAB_KEY}", branch: "$BRANCH_NAME", url: 'git@github.com:dxzxomy/cicd.git'
-                }
-            }
-        }
 
-        stage ('checkout config repo') {
-            steps {
-                dir("${PIPE_NAME}/config-repo") {
-                  git credentialsId: "${GITLAB_KEY}", branch: "$CICD_BRANCH", url: 'git@github.com:dxzxomy/cicd.git'
-                }
-            }
-        }
         stage ('build pipeline') {
             steps {
        	       if  ("master" ==  'master' ) {
