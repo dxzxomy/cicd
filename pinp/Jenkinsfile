@@ -12,7 +12,7 @@ pipeline {
        }
     }
     parameters {
-        string(name:'APP_NAME', defaultValue: '', description:'项目名')
+        string(name:'APP_NAME', defaultValue: '', description:'项目名') 
         choice(description: "选择pipline模板", name: "PIPE_TEMP",choices: ['nodejs','python'])
         choice(description: "选择部署环境", name: "DEPLOY_ENV", choices: ['test','beta','prod'])
     }
