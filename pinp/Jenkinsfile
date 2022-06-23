@@ -44,9 +44,11 @@ pipeline {
             steps {
                 container ('pinp') {
                   dir("${PIPE_NAME}/pinp-repo") {
-                       if ("omy" == "omyhfbcv") {
-                           echo "yes-omy" 
-                       }
+       	       if  (env.BRANCH_NAME ==  'master' ) {
+             		echo  'I only execute on the master branch'
+        	       }  else  {
+             		echo  'I execute elsewhere'
+         	       }
                        sh "ls -ah"
                   }
                 }
