@@ -37,7 +37,6 @@ pipeline {
             steps {
                 dir("${PIPE_NAME}/config-repo") {
                   git credentialsId: "${GITLAB_KEY}", branch: "$CICD_BRANCH", url: 'git@github.com:dxzxomy/cicd.git'
-                  sh 'sleep 100000'
                 }
             }
         }
@@ -45,22 +44,14 @@ pipeline {
             steps {
                 container ('pinp') {
                   dir("${PIPE_NAME}/pinp-repo") {
-                      withCredentials([sshUserPrivateKey(credentialsId: "$GITLAB_KEY", keyFileVariable: 'clonekey', passphraseVariable: '', usernameVariable: 'node')]) {
-                         sh "ssh-agent bash -c \"ssh-add $clonekey;export GIT_SSH_COMMAND='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no';git clone $APP_REPO\""
+                       if ( "omy" = "omy" ) {
+                           echo "yes-omy"
                        }
-                       sh "ls -ah;sleep 10000"
+                       sh "ls -ah"
                   }
                 }
             }
         }
 
-       stage('get app and deploy conf') {
-           steps {
-                dir("$PIPE_NAME/config-repo") {
-                   sh 'ls -alh . && pwd'
-                   sh "cp -ra $APP_NAME/config/${DEPLOY_ENV} ../$APP_NAME/apps_config"
-                }
-           }
-       }
   }
 }
