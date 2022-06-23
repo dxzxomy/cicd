@@ -42,9 +42,14 @@ pipeline {
         }
         stage ('build pipeline') {
             steps {
+       	       if  ("master" ==  'master' ) {
+             		echo  'I only execute on the master branch'
+        	       }  else  {
+             		echo  'I execute elsewhere'
+         	       }
                 container ('pinp') {
                   dir("${PIPE_NAME}/pinp-repo") {
-       	       if  (env.BRANCH_NAME ==  'master' ) {
+       	       if  ("master" ==  'master' ) {
              		echo  'I only execute on the master branch'
         	       }  else  {
              		echo  'I execute elsewhere'
